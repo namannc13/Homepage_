@@ -33,7 +33,7 @@ import {
 } from "@/Redux/user/userSlice";
 import { useDispatch } from "react-redux";
 export default function Home() {
-  const dispatch = useDispatch((state) => state.user)
+  const dispatch = useDispatch((state) => state.user);
   const [tabValue, setTabValue] = useState("my_links");
   const [rerender, setRerender] = useState(true);
   const [formData, setFormData] = useState({
@@ -128,7 +128,18 @@ export default function Home() {
   useEffect(() => {
     const fetchUserLinks = async () => {
       try {
-        const res = await fetch("https://homepage-full-stack.vercel.app/api/link/getLinks");
+        const token = localStorage.getItem("token");
+        const headers = {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        };
+        const res = await fetch(
+          "https://homepage-full-stack.vercel.app/api/link/getLinks",
+          {
+            method: "GET",
+            headers: headers,
+          }
+        );
         const data = await res.json();
         setUserLinks(data);
         console.log(userLinks);
@@ -154,13 +165,19 @@ export default function Home() {
     try {
       e.preventDefault();
       dispatch(submitFormStart());
-      const res = await fetch("https://homepage-full-stack.vercel.app/api/link/addLink", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const token = localStorage.getItem("token");
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      };
+      const res = await fetch(
+        "https://homepage-full-stack.vercel.app/api/link/addLink",
+        {
+          method: "POST",
+          headers: headers,
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await res.json();
       if (data.success === false) {
         dispatch(submitFormFailure(data.message));
@@ -176,10 +193,7 @@ export default function Home() {
     <div className="mt-2">
       <Tabs defaultValue="my_links" className="w-full">
         <TabsList>
-          <TabsTrigger
-            value="my_links"
-            onClick={() => setTabValue("my_links")}
-          >
+          <TabsTrigger value="my_links" onClick={() => setTabValue("my_links")}>
             My Links
           </TabsTrigger>
           <TabsTrigger value="tasu" onClick={() => setTabValue("tasu")}>
@@ -355,7 +369,11 @@ export default function Home() {
                   id="url"
                   onChange={handleChange}
                 />
-                <Button size="sm" disabled={loading} className="uppercase bg-foreground">
+                <Button
+                  size="sm"
+                  disabled={loading}
+                  className="uppercase bg-foreground"
+                >
                   {loading ? "loading..." : "Add"}
                 </Button>
               </form>

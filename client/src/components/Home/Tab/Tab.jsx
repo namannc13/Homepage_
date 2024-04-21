@@ -22,11 +22,14 @@ export default function Tab({ name, url, iconName, setUserLinks }) {
 
   const handleDeleteTab = async () => {
     try {
+      const token = localStorage.getItem("token");
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      };
       const res = await fetch("https://homepage-full-stack.vercel.app/api/link/deleteLink", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: headers,
         body: JSON.stringify({ name }),
       });
       const data = await res.json();
