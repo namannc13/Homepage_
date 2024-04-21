@@ -10,27 +10,27 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    logInStart: (state) => {
+      state.loading = true;
+    },
+    logInSuccess: (state, action) => {
+      state.currentUser = action.payload;
+      state.loading = false;
+      state.error = null;
+      localStorage.setItem('token', action.payload.token);
+    },
+    logInFailure: (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    },
     signInStart: (state) => {
       state.loading = true;
     },
     signInSuccess: (state, action) => {
-      state.currentUser = action.payload;
       state.loading = false;
       state.error = null;
     },
     signInFailure: (state, action) => {
-      state.error = action.payload;
-      state.loading = false;
-    },
-    deleteUserStart: (state) => {
-      state.loading = true;
-    },
-    deleteUserSuccess: (state,action) => {
-      state.currentUser = null;
-      state.loading = false;
-      state.error = null
-    },
-    deleteUserFailure: (state, action) => {
       state.error = action.payload;
       state.loading = false;
     },
@@ -40,7 +40,8 @@ const userSlice = createSlice({
     logoutUserSuccess: (state,action) => {
       state.currentUser = null;
       state.loading = false;
-      state.error = null
+      state.error = null;
+      localStorage.removeItem('token');
     },
     logoutUserFailure: (state, action) => {
       state.error = action.payload;
@@ -61,6 +62,6 @@ const userSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { signInStart, signInSuccess, signInFailure, updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess,logoutUserFailure, logoutUserStart, logoutUserSuccess, submitFormStart, submitFormSuccess,submitFormFailure } = userSlice.actions;
+export const { logInStart, logInSuccess, logInFailure, signInStart, signInSuccess, signInFailure, updateUserStart, updateUserSuccess, updateUserFailure,logoutUserFailure, logoutUserStart, logoutUserSuccess, submitFormStart, submitFormSuccess,submitFormFailure } = userSlice.actions;
 
 export default userSlice.reducer;

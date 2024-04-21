@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  signInFailure,
-  signInStart,
-  signInSuccess,
+  logInStart,
+  logInSuccess,
+  logInFailure,
 } from "@/Redux/user/userSlice";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -26,7 +26,7 @@ export default function Login() {
     try {
       // this try and catch block is important for handling the error in the frontend rather than the backend
       e.preventDefault();
-      dispatch(signInStart());
+      dispatch(logInStart());
       const res = await fetch("https://homepage-full-stack.vercel.app/api/auth/login", {
         method: "POST",
         headers: {
@@ -36,14 +36,14 @@ export default function Login() {
       });
       const data = await res.json();
       if (data.success === false) {
-        dispatch(signInFailure(data.message));
+        dispatch(logInFailure(data.message));
         return;
       }
-      dispatch(signInSuccess(data));
+      dispatch(logInSuccess(data));
       navigate("/");
       console.log(data);
     } catch (error) {
-      dispatch(signInFailure(error.message));
+      dispatch(logInFailure(error.message));
     }
   };
 
