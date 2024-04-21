@@ -128,9 +128,10 @@ export default function Home() {
   useEffect(() => {
     const fetchUserLinks = async () => {
       try {
-        const res = await fetch("/api/link/getLinks");
+        const res = await fetch("https://homepage-full-stack.vercel.app/api/link/getLinks");
         const data = await res.json();
         setUserLinks(data);
+        console.log(userLinks);
       } catch (error) {
         console.log(error);
       }
@@ -153,7 +154,7 @@ export default function Home() {
     try {
       e.preventDefault();
       dispatch(submitFormStart());
-      const res = await fetch("/api/link/addLink", {
+      const res = await fetch("https://homepage-full-stack.vercel.app/api/link/addLink", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

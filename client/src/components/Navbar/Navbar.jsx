@@ -13,7 +13,7 @@ const Navbar = () => {
   const handleLogOut = async () => {
     try {
       dispatch(logoutUserStart());
-      const res = await fetch("/api/auth/logout");
+      const res = await fetch("https://homepage-full-stack.vercel.app/api/auth/logout");
       const data = await res.json();
       if (data.success === false) {
         dispatch(logoutUserFailure(data.message));

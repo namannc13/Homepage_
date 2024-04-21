@@ -22,7 +22,7 @@ export default function Tab({ name, url, iconName, setUserLinks }) {
 
   const handleDeleteTab = async () => {
     try {
-      const res = await fetch("/api/link/deleteLink", {
+      const res = await fetch("https://homepage-full-stack.vercel.app/api/link/deleteLink", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

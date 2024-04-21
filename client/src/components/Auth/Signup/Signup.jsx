@@ -27,7 +27,7 @@ export default function Signup() {
       // this try and catch block is important for handling the error in the frontend rather than the backend
       e.preventDefault();
       dispatch(signInStart());
-      const res = await fetch("/api/auth/signup", {
+      const res = await fetch("https://homepage-full-stack.vercel.app/api/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
