@@ -5,9 +5,7 @@ import { linkRouter } from "./routes/link.route.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import { info } from "./utils/logger.js";
-import dotenv from "dotenv";
-
-dotenv.config();
+import { PORT } from "./utils/config.js";
 
 const app = express();
 
@@ -35,7 +33,6 @@ app.use((err, req, res, next) => {
   });
 });
 
-const port = process.env.PORT
-app.listen(port, () => {
-  info(`Server Started on port ${port}`);
+app.listen(PORT, () => {
+  info(`Server Started on port ${PORT}`);
 });

@@ -1,11 +1,9 @@
 import mongoose from "mongoose";
-import dotenv from "dotenv";
 import { error, info } from "../utils/logger.js";
-
-dotenv.config();
+import { MONGODB_URI } from "../utils/config.js";
 
 mongoose
-  .connect(process.env.mongo_uri)
+  .connect(MONGODB_URI)
   .then(() => {
     info("Connected to Database!");
   })

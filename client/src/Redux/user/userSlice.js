@@ -34,18 +34,11 @@ const userSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
-    logoutUserStart: (state) => {
-      state.loading = true;
-    },
-    logoutUserSuccess: (state,action) => {
+    logoutUser: (state,action) => {
       state.currentUser = null;
       state.loading = false;
       state.error = null;
       localStorage.removeItem('token');
-    },
-    logoutUserFailure: (state, action) => {
-      state.error = action.payload;
-      state.loading = false;
     },
     submitFormStart: (state) => {
       state.loading = true;
@@ -62,6 +55,6 @@ const userSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { logInStart, logInSuccess, logInFailure, signInStart, signInSuccess, signInFailure, updateUserStart, updateUserSuccess, updateUserFailure,logoutUserFailure, logoutUserStart, logoutUserSuccess, submitFormStart, submitFormSuccess,submitFormFailure } = userSlice.actions;
+export const { logInStart, logInSuccess, logInFailure, signInStart, signInSuccess, signInFailure, updateUserStart, updateUserSuccess, updateUserFailure, logoutUser, submitFormStart, submitFormSuccess,submitFormFailure } = userSlice.actions;
 
 export default userSlice.reducer;
