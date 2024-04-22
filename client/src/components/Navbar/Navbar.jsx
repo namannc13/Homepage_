@@ -9,7 +9,7 @@ const Navbar = () => {
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const handleLogOut = async () => {
-    dispatch(logoutUser(data));
+    dispatch(logoutUser());
   };
   return (
     <nav className="backdrop-blur-sm p-2 xl:mx-auto sticky top-0 z-50 border-b">
