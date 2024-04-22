@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { errorHandler } from "./error.js";
-import { JWT_SECRET } from "./config.js";
+import config from "./config.js";
+
 export const verifyToken = (req, res, next) => {
   const token = req.headers.authorization;
   if (!token) return next(errorHandler(401, "Unauthorized"));
@@ -12,7 +13,7 @@ export const verifyToken = (req, res, next) => {
 
   const accessToken = tokenParts[1];
 
-  jwt.verify(accessToken, JWT_SECRET, (err, user) => {
+  jwt.verify(accessToken, config.JWT_SECRET, (err, user) => {
     if (err) return next(errorHandler(403, "Forbidden"));
     req.user = user;
     next();

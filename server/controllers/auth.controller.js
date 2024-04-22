@@ -2,7 +2,7 @@ import { userModel } from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { errorHandler } from "../utils/error.js";
-import { JWT_SECRET } from "../utils/config.js";
+import config from "../utils/config.js";
 
 const signup = async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -23,7 +23,7 @@ const login = async (req, res, next) => {
     if (!validUser) return next(errorHandler(404, "User not found!"));
     const validPassword = bcryptjs.compareSync(password, validUser.password);
     if (!validPassword) return next(errorHandler(401, "Wrong credentials!"));
-    const token = jwt.sign({ id: validUser._id }, JWT_SECRET);
+    const token = jwt.sign({ id: validUser._id }, config.JWT_SECRET);
     const { password: pass, ...rest } = validUser._doc;
     res
       .status(200)
