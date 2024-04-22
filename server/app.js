@@ -10,7 +10,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://homepage-full-stack-thvn.vercel.app",
     methods: ["GET", "POST"],
     credentials: true,
   })
