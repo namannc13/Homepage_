@@ -1,13 +1,14 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import { error, info } from "../utils/logger.js";
 
 dotenv.config();
 
 mongoose
   .connect(process.env.mongo_uri)
   .then(() => {
-    console.log("connected to database!");
+    info("Connected to Database!");
   })
   .catch((err) => {
-    console.log(err);
+    error(err);
   });
