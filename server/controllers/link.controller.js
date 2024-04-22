@@ -1,5 +1,4 @@
 import { linkModel } from "../models/link.model.js";
-import { userModel } from "../models/user.model.js";
 import { errorHandler } from "../utils/error.js";
 
 const getLinks = async (req, res, next) => {
